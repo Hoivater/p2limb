@@ -8,10 +8,14 @@
 	 */
 	class Limb
 	{
-
+		private $language;
 		function __construct()
 		{
-			// code...
+			if(isset($_COOKIE['language'])) $this -> language = $_COOKIE['language'];
+			else 
+			{
+				$this -> language = "ru_";
+			}
 		}
 
 		public function TemplateMaster($template, $data, $auth, $html)#основная функция для сборки страницы
@@ -91,9 +95,9 @@
 			$name = $template["name"];
 			$folder = $template["folder"];
 			#ищем tm файл для замены в указанной папке
-			if(file_exists(__DIR__."/../../view/public/".$folder."/".$name.".tm"))
+			if(file_exists(__DIR__."/../../view/".$this -> language."public/".$folder."/".$name.".tm"))
 			{
-				$file_tm = file_get_contents(__DIR__."/../../view/public/".$folder."/".$name.".tm");
+				$file_tm = file_get_contents(__DIR__."/../../view/".$this -> language."public/".$folder."/".$name.".tm");
 				$html_module = $file_tm;
 				for($i = 0; $i < count($tm); $i++){
 					if(str_contains($file_tm, "^start_repeat_".$tm[$i]."^"))
@@ -129,9 +133,9 @@
 			$name = $template["name"];
 			$folder = $template["folder"];
 			#ищем tm файл для замены в указанной папке
-			if(file_exists(__DIR__."/../../view/public/".$folder."/".$name.".tm"))
+			if(file_exists(__DIR__."/../../view/".$this -> language."public/".$folder."/".$name.".tm"))
 			{
-				$file_tm = file_get_contents(__DIR__."/../../view/public/".$folder."/".$name.".tm");
+				$file_tm = file_get_contents(__DIR__."/../../view/".$this -> language."public/".$folder."/".$name.".tm");
 				$html_module = $file_tm;
 				for($i = 0; $i < count($tm); $i++){
 					if(str_contains($file_tm, "^start_repeat_".$tm[$i]."^"))
@@ -167,9 +171,9 @@
 			$start = "^start_repeat_".$name."^";
 			$end = "^end_repeat_".$name."^";
 
-			if(file_exists(__DIR__."/../../view/public/".$folder."/".$name.".tm"))
+			if(file_exists(__DIR__."/../../view/".$this -> language."public/".$folder."/".$name.".tm"))
 			{
-				$file_tm = file_get_contents(__DIR__."/../../view/public/".$folder."/".$name.".tm");
+				$file_tm = file_get_contents(__DIR__."/../../view/".$this -> language."public/".$folder."/".$name.".tm");
 
 				$ar = explode("\n", $file_tm);
 				if(str_contains($file_tm, "^start_repeat_".$name."^")){
@@ -206,9 +210,9 @@
 			$name = $template["name"];
 			$folder = $template["folder"];
 			#ищем tm файл для замены в указанной папке
-			if(file_exists(__DIR__."/../../view/public/".$folder."/".$name.".tm"))
+			if(file_exists(__DIR__."/../../view/".$this -> language."public/".$folder."/".$name.".tm"))
 			{
-				$file_tm = file_get_contents(__DIR__."/../../view/public/".$folder."/".$name.".tm");
+				$file_tm = file_get_contents(__DIR__."/../../view/".$this -> language."public/".$folder."/".$name.".tm");
 				#проверяем на возможность повтора
 				$file_tm_arr = explode("\n", $file_tm);
 				if(str_contains($file_tm, "^start_repeat_".$name."^"))

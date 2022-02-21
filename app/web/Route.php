@@ -21,6 +21,9 @@ class Route
 		$requestUri = strtok($requestUri, '?');
 		$this -> auth = Control\Control::IsRules();
 		
+		#возможно поменять на возможность считывания из базы данных, если на сайте присутствует регистрация
+		if(!isset($_COOKIE["language"]))
+			setcookie("language", "ru_", time() + 172800, '/');
 		if(isset($_GET))
 		{
 			$this -> get = $_GET;
@@ -75,8 +78,37 @@ class Route
 
 				}
 
+			#модуль языковой########################################################################
+			#################### ######### ####  #######  ####      ################################
+			#################### ######### #### # ##### # #### ##### ###############################
+			#################### ######### #### ## ### ## #### #   #################################
+			#################### ######### #### ### # ### #### ###### ##############################
+			####################      #### #### #### #### ####       ###############################
+			
+				elseif($route_arr[0] == "lang")
+				{
+					$this -> forms = true;
+					if(isset($route_arr[1]))
+					{
+						$ini = parse_ini_file(__DIR__."/../../setting.ini");
+						$lang_group = explode(", ", $ini["language"]);
+						if($this -> langGroup($lang_group, $route_arr[1]))
+						{
+							setcookie("language", $route_arr[1], time() + 172800, '/');
+							header("Location: ".$_SERVER["HTTP_REFERER"]);
+							exit();
+						}
+						else
+						{
+							header("Location: ".$_SERVER["HTTP_REFERER"]);
+							exit();
+						}
+					}
 
-			#модуль регистрации
+				}
+
+
+			#модуль регистрации#####################################################################
 			#################### ######### ####  #######  ####      ################################
 			#################### ######### #### # ##### # #### ##### ###############################
 			#################### ######### #### ## ### ## #### #   #################################
@@ -128,7 +160,7 @@ class Route
 				else
 				{
 
-					$ini = parse_ini_file(__DIR__."/../../../setting.ini");
+					$ini = parse_ini_file(__DIR__."/../../setting.ini");
 					header("Location: ".$ini["name_site"]."/view/error/404.php");
 				}
 		}
@@ -138,6 +170,16 @@ class Route
 		}
 
 		$this -> html = $html -> page;
+	}
+	public function langGroup($arr, $key)
+	{
+		$result = false;
+		for($i = 0; $i < count($arr); $i++)
+		{
+			if($arr[$i] == $key)
+				$result = true;
+		}
+		return $result;
 	}
 	private function routeLimb()
 	{

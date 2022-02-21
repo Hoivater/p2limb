@@ -5,6 +5,7 @@
 	use limb\app\worker as Worker;#для шаблонизатора
 	use limb\app\form as Form;
 	use limb\app\modules\commentary as Comm;
+	
 	/**
 	 * работа с данными таблицы
 	 *
@@ -16,11 +17,15 @@
 		public $name = '39t_article';//имя таблицы которое используется по умолчанию
 		public $table_key = "`id`, `text`";
 		#public $replace = [$id, $text];
-
+		protected $language;
 
 		public function __construct()
 		{
-
+			if(isset($_COOKIE['language'])) $this -> language = $_COOKIE['language'];
+			else 
+			{
+				$this -> language = "ru_";
+			}
 		}
 
 		//метод достаюший все поля из таблицы
@@ -67,7 +72,7 @@
 		protected function Limb($auth, $id)#сборщик страницы
 		{
 			$limb = new Worker\Limb();
-			$page_ini = parse_ini_file(__DIR__."/../../view/page.ini");
+			$page_ini = parse_ini_file(__DIR__."/../../view/".$this -> language."page.ini");
 			$si = new Base\SearchInq($this -> name);
 			$si -> selectQ();
 			$si -> whereQ("id", $id, "=");

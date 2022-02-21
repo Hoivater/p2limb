@@ -24,7 +24,7 @@ use limb\app\base\control as Control;
 		public static function PrintPage($code, $form, $name_page = "")
 		{
 			// подключение style
-			$style = parse_ini_file(__DIR__."/../../view/public/include_style.ini");
+			$style = parse_ini_file(__DIR__."/../../view/include_style.ini");
 			if(isset($style[$name_page."_top"]) && isset($style[$name_page."_bottom"]))
 			{
 				$style_top = $style[$name_page."_top"];

@@ -9,10 +9,16 @@ use limb\app\worker as Worker; #для работы с базой данный
 	 */
 	class MainTable
 	{
+		protected $language;
 
 		public function __construct()
 		{
-
+			
+			if(isset($_COOKIE['language'])) $this -> language = $_COOKIE['language'];
+			else 
+			{
+				$this -> language = "ru_";
+			}
 		}
 
 		//метод достаюший все поля из таблицы
@@ -36,7 +42,7 @@ use limb\app\worker as Worker; #для работы с базой данный
 		protected function Limb($auth = "noauth")#сборщик страницы
 		{
 			$limb = new Worker\Limb();
-			$page_ini = parse_ini_file(__DIR__."/../../view/page.ini");
+			$page_ini = parse_ini_file(__DIR__."/../../view/".$this -> language."page.ini");
 			$si = new Base\SearchInq("39t_article");
 			$si -> selectQ();
 			$si -> orderDescQ();

@@ -12,7 +12,7 @@
 <header>
 	<a href = "%name_site%"><h1>%site%</h1></a>
 	<div class="navig mt-2">
-		<a class="langRu" href="#" %lang_ru%>RU</a>|<a class = "langEng" href="#" %lang_eng%>ENG</a>
+		<a class="lang " href="%name_site%/lang/ru_" %lang_ru%>RU</a>|<a class = "lang " href="%name_site%/lang/eng_" %lang_eng%>ENG</a>
 		%startuser%
 		<a href = "%name_site%/destructauth">Выйти</a>
 		%enduser%

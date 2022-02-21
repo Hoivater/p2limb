@@ -15,11 +15,17 @@
 		public $table_key = "`id`, `id_article`, `name`, `text`, `levels`, `nesting`, `code`, `date_creation`";
 		public $ini;
 		#public $replace = [$id, $id_article, $name, $text, $level, $code, $date_creation];
-
+		protected $language;
 
 		public function __construct()
 		{
 			$this -> ini = parse_ini_file(__DIR__."/../../../setting.ini");
+
+			if(isset($_COOKIE['language'])) $this -> language = $_COOKIE['language'];
+			else 
+			{
+				$this -> language = "ru_";
+			}
 		}
 
 		public function LoadCommentary($id)
@@ -73,6 +79,7 @@
 		}
 
 		public function renderCommentary($id, $auth = "noauth"){
+			$com_paginate = $this -> ini["comm_paginate"];
 			$limb = new Worker\Limb();
 			$si2 = new Base\SearchInq("39t_commentary");
 			$si2 -> selectQ();
@@ -80,7 +87,7 @@
 			$si2 -> andQ("levels", 0, "=");
 			$si2 -> orderAscQ();
 			$si2 -> resQ();
-			$res = $si2 -> paginateQ(5);  //все комментарии к статье
+			$res = $si2 -> paginateQ($com_paginate);  //все комментарии к статье
 			$all_commentary_for_article = $res[0];
 			$mod_pag = $res[1];
 
@@ -100,7 +107,7 @@
 				"internal" => [$all_commentary_for_article]
 			];
 
-			return $limb -> TemplateMaster($template, $data, $auth, file_get_contents(__DIR__."/../../../view/public/commentary/main.tm"));
+			return $limb -> TemplateMaster($template, $data, $auth, file_get_contents(__DIR__."/../../../view/".$this -> language."public/commentary/main.tm"));
 
 		}
 		#на основании code текущего сообщения проверяет наличие ответов на данное сообщение
@@ -118,7 +125,7 @@
 			}
 			else
 			{
-				$tm = file_get_contents(__DIR__."/../../../view/public/commentary/true_view_answ.tm");
+				$tm = file_get_contents(__DIR__."/../../../view/".$this -> language."public/commentary/true_view_answ.tm");
 				$tm = str_replace(["%count%", "%code%"], [count($result), $code], $tm);
 			}
 			return $tm;
@@ -129,7 +136,7 @@
 			$nesting = $this -> ini["nesting"];
 			if($level_comment < $nesting)
 			{
-				$tm = file_get_contents(__DIR__."/../../../view/public/commentary/level_comment.tm");
+				$tm = file_get_contents(__DIR__."/../../../view/".$this -> language."public/commentary/level_comment.tm");
 				$tm = str_replace("%code%", $code, $tm);
 			}
 			else
