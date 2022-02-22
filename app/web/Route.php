@@ -22,8 +22,10 @@ class Route
 		$this -> auth = Control\Control::IsRules();
 		
 		#возможно поменять на возможность считывания из базы данных, если на сайте присутствует регистрация
+		
 		if(!isset($_COOKIE["language"]))
 			setcookie("language", "ru_", time() + 172800, '/');
+
 		if(isset($_GET))
 		{
 			$this -> get = $_GET;

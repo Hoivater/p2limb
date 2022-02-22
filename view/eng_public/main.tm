@@ -14,11 +14,11 @@
 	<div class="navig mt-2">
 		<a class="lang " href="%name_site%/lang/ru_" %lang_ru%>RU</a>|<a class = "lang " href="%name_site%/lang/eng_" %lang_eng%>ENG</a>
 		%startuser%
-		<a href = "%name_site%/destructauth">Выйти</a>
+		<a href = "%name_site%/destructauth">Exit</a>
 		%enduser%
 
 		%startnoauth%
-		<a href = "%name_site%/auth">Войти</a> | <a href = "%name_site%/registration">Зарегистрироваться</a>
+		<a href = "%name_site%/auth">Log in</a> | <a href = "%name_site%/registration">Register</a>
 		%endnoauth%
 	</div>
 	<div class="clean"></div>

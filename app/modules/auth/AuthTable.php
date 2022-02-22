@@ -117,9 +117,16 @@ class AuthTable
 		{
 			if(md5($data[0]["code"]) == $code)
 				$result = true;
+			$name = $data[0]["name"];
+			$access_user = $data[0]["access_user"];
+		}
+		else
+		{
+			$name = "";
+			$access_user = "";
 		}
 
-		return [$result, $data[0]["name"], $data[0]["access_user"]];
+		return [$result, $name, $access_user];
 	}
 	public function AuthRules($code, $email)
 	{

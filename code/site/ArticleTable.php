@@ -49,11 +49,11 @@
 			$table_key757658 = "`id`, `text`";
 			for($i = 0; $i <= $num-1; $i++)
 			{
-			$id = Control\Generate::this_idgenerate();
-			$text = Control\Generate::textgenerate(200);
-			$value = "".$id.", '".$text."'";
-			$ri = new Base\RedactionInq($name77656756, $table_key757658);
-			$result = $ri -> insert($value);
+				$id = Control\Generate::this_idgenerate();
+				$text = Control\Generate::textgenerate(200);
+				$value = "".$id.", '".$text."'";
+				$ri = new Base\RedactionInq($name77656756, $table_key757658);
+				$result = $ri -> insert($value);
 			}
 			#code...
 		}
@@ -95,9 +95,6 @@
 			$com = new Comm\CommentaryTable();
 			$one_article[0]["commentary"] = $com -> renderCommentary($one_article[0]["id"], $auth);
 			##############################################################
-
-
-
 
 			if(isset($one_article[0]["id"])){
 

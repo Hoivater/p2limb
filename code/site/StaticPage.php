@@ -55,7 +55,7 @@ use limb\app\base as Base;
 			
 			for($i = 0; $i < count($language_group); $i++)
 			{
-				if($language_group[$i] == $this -> language)
+				if(trim($language_group[$i]) == $this -> language)
 					$language_group[$i] = "style='border-bottom: 1px solid #fff;'";
 
 				else

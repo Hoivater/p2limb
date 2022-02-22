@@ -89,11 +89,11 @@ use limb\code\site as Site;
 			$res = \limb\code\site\ArticleTable::redArticle($this -> data);
 			return $res;
 		}
-		public function addCommentary()
-		{
 
-			$res = \limb\code\site\CommentsTable::addCommentary($this -> data);
-			return $res;
+		protected function newCommentary()
+		{
+			$ar = Comm\CommentaryTable::addCommentary($this -> data);
+			return $ar;
 		}
 		public function ImportBD()
 		{
@@ -115,11 +115,6 @@ use limb\code\site as Site;
 		protected function NewArticle()
 		{
 			$ar = Site\ArticleTable::addArticle($this -> data);
-			return $ar;
-		}
-		protected function newCommentary()
-		{
-			$ar = Comm\CommentaryTable::addCommentary($this -> data);
 			return $ar;
 		}
 
